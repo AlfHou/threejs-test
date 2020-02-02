@@ -8,13 +8,18 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
 let geometry = new THREE.BoxGeometry();
-let material = new THREE.MeshBasicMaterial({ color: 0x00055 });
+let material = new THREE.MeshPhongMaterial({ color: 0x00055, shininess: 60 });
 let cube = new THREE.Mesh(geometry, material);
 scene.add(cube);
+
+let light = new THREE.DirectionalLight("0xFFFFFF", 1);
+light.position.set(-1, 2, 4);
+scene.add(light);
 
 camera.position.z = 5;
 
 let movement = 0.01;
+
 animate();
 
 function animate() {
@@ -22,6 +27,7 @@ function animate() {
     cube.rotation.x += 0.01;
     cube.rotation.y += 0.05;
     cube.position.z += movement;
+
     if (cube.position.z > 3.5) {
         movement = -0.01;
     }
